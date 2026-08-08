@@ -95,7 +95,7 @@ conversions:
 
 ## Tech
 
-- Python 3.9+
+- Python 3.10+
 - [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI) 4.21 — Telegram Bot API
 - [requests](https://requests.readthedocs.io) 2.32 — HTTP client
 - [Monobank API](https://api.monobank.ua/docs/) — `GET /bank/currency`
