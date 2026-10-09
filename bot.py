@@ -17,7 +17,7 @@ import requests
 import telebot
 from telebot import types
 
-# ===== CONFIGURATION =====
+# Configuration
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 if not BOT_TOKEN:
@@ -43,7 +43,7 @@ logger = logging.getLogger(__name__)
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# ===== CURRENCIES =====
+# Currencies
 
 CURRENCIES = {
     "USD": 840,
@@ -55,12 +55,10 @@ CURRENCIES = {
     "UAH": UAH_CODE,
 }
 
-CODE_TO_NAME = {code: name for name, code in CURRENCIES.items()}
-
 # Per-chat conversation state: {chat_id: {"step": ..., "amount": ...}}
 user_state = {}
 
-# ===== RATES CACHE =====
+# Rates cache
 # Monobank rejects requests made more often than once per 60 seconds,
 # so responses are cached and reused within that window.
 
@@ -89,7 +87,7 @@ def fetch_rates() -> list | None:
     return rates
 
 
-# ===== RATE LOOKUP =====
+# Rate lookup
 
 
 def get_rate(from_code: int, to_code: int) -> float | None:
@@ -166,7 +164,7 @@ def convert_amount(amount: float, from_code: int, to_code: int) -> float | None:
     return None
 
 
-# ===== HISTORY STORAGE =====
+# History storage
 # Stored as {chat_id: [entry, ...]} so that users never see each other's data.
 
 
@@ -210,7 +208,7 @@ def save_to_history(chat_id: int, entry: dict) -> None:
         logger.warning("Could not write %s: %s", HISTORY_FILE, error)
 
 
-# ===== KEYBOARDS =====
+# Keyboards
 
 
 def currency_keyboard() -> types.InlineKeyboardMarkup:
@@ -233,7 +231,7 @@ def main_menu_keyboard() -> types.ReplyKeyboardMarkup:
     return markup
 
 
-# ===== COMMAND HANDLERS =====
+# Command handlers
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -381,7 +379,7 @@ def handle_unknown(message):
     )
 
 
-# ===== ENTRY POINT =====
+# Entry point
 
 if __name__ == "__main__":
     logger.info("Bot started, waiting for messages...")
